@@ -29,8 +29,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.unitconverter.ui.theme.UnitConverterTheme
 import java.io.File
 import kotlin.math.roundToInt
@@ -64,6 +68,12 @@ fun UnitConverter() {
     var iExpanded by remember { mutableStateOf(false) }
     var oExpanded by remember { mutableStateOf(false) }
 
+    val customTextStyle = TextStyle(
+        fontFamily = FontFamily.Default,
+        fontSize = 16.sp,
+        color = Color.Red
+    )
+
     fun convertUnits(){
         val inputValueDouble = inputValue.toDoubleOrNull() ?: 0.0
         val result = (inputValueDouble * conversionFactor.doubleValue * 100.0 / oConversionFactor.doubleValue).roundToInt() / 100.0
@@ -76,7 +86,9 @@ fun UnitConverter() {
         horizontalAlignment = Alignment.CenterHorizontally
     ){
         // Here all the UI elements will be stacked below each other
-        Text("Unit Converter")
+        Text("Unit Converter",
+                style = MaterialTheme.typography.headlineLarge
+            )
         Spacer(modifier = Modifier.height(16.dp))
         OutlinedTextField(value = inputValue, onValueChange = {
            inputValue = it
@@ -178,7 +190,10 @@ fun UnitConverter() {
 
         }
         Spacer(modifier = Modifier.height(16.dp))
-        Text("Result: $outputValue $outputUnit")
+        Text("Result: $outputValue $outputUnit",
+                style = MaterialTheme.typography.headlineMedium
+
+            )
     }
 
 }
